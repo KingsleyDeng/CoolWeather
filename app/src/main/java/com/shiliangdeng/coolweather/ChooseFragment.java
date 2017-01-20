@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.shiliangdeng.coolweather.db.City;
 import com.shiliangdeng.coolweather.db.County;
-import com.shiliangdeng.coolweather.db.Provice;
+import com.shiliangdeng.coolweather.db.Province;
 import com.shiliangdeng.coolweather.util.HttpUtil;
 import com.shiliangdeng.coolweather.util.Utility;
 
@@ -55,7 +55,7 @@ public class ChooseFragment extends Fragment {
     /**
      * 省列表
      */
-    private List<Provice> proviceList;
+    private List<Province> provinceList;
     /**
      * 市列表
      */
@@ -68,7 +68,7 @@ public class ChooseFragment extends Fragment {
     /**
      * 选中的省份
      */
-    private Provice selectedProvince;
+    private Province selectedProvince;
     /**
      * 选中的城市
      */
@@ -97,7 +97,7 @@ public class ChooseFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (currentLevel == LEVEL_PROVINCE) {
-                    selectedProvince = proviceList.get(i);
+                    selectedProvince = provinceList.get(i);
                     queryCities();
                 } else if (currentLevel == LEVEL_CITY) {
                     selectedCity = cityList.get(i);
@@ -115,6 +115,7 @@ public class ChooseFragment extends Fragment {
                 }
             }
         });
+        queryProvinces();
     }
 
     /**
@@ -123,11 +124,11 @@ public class ChooseFragment extends Fragment {
     private void queryProvinces() {
         titleText.setText("中国");
         backButton.setVisibility(View.GONE);
-        proviceList = DataSupport.findAll(Provice.class);
-        if (proviceList.size() > 0) {
+        provinceList = DataSupport.findAll(Province.class);
+        if (provinceList.size() > 0) {
             dataList.clear();
-            for (Provice provice : proviceList) {
-                dataList.add(provice.getProviceName());
+            for (Province province : provinceList) {
+                dataList.add(province.getProviceName());
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
@@ -144,7 +145,7 @@ public class ChooseFragment extends Fragment {
     private void queryCities() {
         titleText.setText(selectedProvince.getProviceName());
         backButton.setVisibility(View.VISIBLE);
-        cityList = DataSupport.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
+        cityList = DataSupport.where("provinceid=?", String.valueOf(selectedProvince.getId())).find(City.class);
         if (cityList.size() > 0) {
             dataList.clear();
             for (City city : cityList) {

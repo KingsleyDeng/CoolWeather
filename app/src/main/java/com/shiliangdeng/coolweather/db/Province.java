@@ -6,13 +6,13 @@ import org.litepal.crud.DataSupport;
  * Created by shiliangdeng on 17/1/15.
  */
 
-public class Provice extends DataSupport {
+public class Province extends DataSupport {
     //id
     private int id;
     //记录省的名字
-    private String proviceName;
+    private String provinceName;
     //记录省的代号
-    private int proviceCode;
+    private int provinceCode;
 
     public int getId() {
         return id;
@@ -23,18 +23,18 @@ public class Provice extends DataSupport {
     }
 
     public String getProviceName() {
-        return proviceName;
+        return provinceName;
     }
 
     public void setProviceName(String proviceName) {
-        this.proviceName = proviceName;
+        this.provinceName = proviceName;
     }
 
     public int getProviceCode() {
-        return proviceCode;
+        return provinceCode;
     }
 
     public void setProviceCode(int proviceCode) {
-        this.proviceCode = proviceCode;
+        this.provinceCode = proviceCode;
     }
 }
